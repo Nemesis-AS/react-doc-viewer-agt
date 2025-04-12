@@ -33,15 +33,39 @@ export const useDocumentLoader = (): {
       const controller = new AbortController();
       const { signal } = controller;
 
-      fetch(documentURI, { method: "HEAD", signal }).then((response) => {
-        const contentTypeRaw = response.headers.get("content-type");
-        const contentTypes = contentTypeRaw?.split(";") || [];
-        const contentType = contentTypes.length ? contentTypes[0] : undefined;
+      fetch(documentURI, { method: "GET", signal }).then((response) => {
+        // const contentTypeRaw = response.headers.get("content-type");
+        // const contentTypes = contentTypeRaw?.split(";") || [];
+        // const contentType = contentTypes.length ? contentTypes[0] : undefined;
+
+        const ext = new URL(documentURI).pathname.split(".").at(-1);
+        let guessedMime = null;
+        switch (ext) {
+          case "pdf": {
+            guessedMime = "application/pdf";
+            break;
+          }
+          case "png": {
+            guessedMime = "image/png";
+            break;
+          }
+          case "jpg":
+          case "jpeg": {
+            guessedMime = "image/jpeg";
+            break;
+          }
+          case "txt": {
+            guessedMime = "text/plain";
+            break;
+          }
+          default:
+            guessedMime = "application/octet-stream";
+        }
 
         dispatch(
           updateCurrentDocument({
             ...currentDocument,
-            fileType: contentType || undefined,
+            fileType: guessedMime || undefined,
           })
         );
       });
