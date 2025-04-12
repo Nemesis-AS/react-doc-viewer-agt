@@ -1,11 +1,11 @@
 {
- "name": "react-doc-viewer",
- "version": "0.1.14",
+ "name": "react-doc-viewer-agt",
+ "version": "0.2.0",
  "description": "Document viewer for react. Renders online/local documents.",
- "author": "Matthew Mogford",
- "license": "ISC",
+ "author": "Akshat Shukla",
+ "license": "Apache-2.0",
  "repository": {
-  "url": "https://github.com/Alcumus/react-doc-viewer"
+  "url": "https://github.com/Nemesis-AS/react-doc-viewer-agt"
  },
  "main": "build/index.js",
  "types": "build/index.d.ts",
